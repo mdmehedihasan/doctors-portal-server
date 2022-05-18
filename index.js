@@ -51,7 +51,7 @@ async function run() {
             res.send(users);
         });
 
-        app.put('/user/admin:email', async (req, res) => {
+        app.put('/user/admin/:email', verifyJWT, async (req, res) => {
             const email = req.params.email;
 
             const filter = { email: email };
@@ -61,7 +61,7 @@ async function run() {
             };
             const result = await userCollection.updateOne(filter, updateDoc);
 
-            res.send({ result });
+            res.send(result);
         })
 
         app.put('/user/:email', async (req, res) => {
